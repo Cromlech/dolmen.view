@@ -18,8 +18,8 @@ We should find the ``cavepainting`` view for a mammoth:
   True
 
   >>> from zope.interface.verify import verifyObject
-  >>> from dolmen.view.interfaces import IGrokView
-  >>> verifyObject(IGrokView, view)
+  >>> from cromlech.browser.interfaces import IView
+  >>> verifyObject(IView, view)
   True
 
 Look up a view with a name explicitly set with ``dolmen.name``:

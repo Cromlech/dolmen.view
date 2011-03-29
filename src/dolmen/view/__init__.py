@@ -2,7 +2,6 @@
 
 from grokcore.component import *
 from dolmen.view.components import View, ViewSupport, TemplateView
-from dolmen.view.interfaces import IView
 from dolmen.view.directive import request, view
 
 # Import this module so that it's available as soon as you import the

@@ -5,7 +5,7 @@ import martian
 from martian.error import GrokError
 from martian import util
 from dolmen import view
-from cromlech.io.interfaces import IRenderer
+from cromlech.browser.interfaces import IRenderer
 from zope.component import provideAdapter
 from zope.interface import Interface
 

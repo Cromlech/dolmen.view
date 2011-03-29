@@ -1,7 +1,7 @@
 """
 Views without a context cannot be grokked:
 
-  >>> grok.testing.grok(__name__)
+  >>> dolmen.testing.grok(__name__)
   Traceback (most recent call last):
     ...
   GrokError: No module-level context for
@@ -10,8 +10,8 @@ Views without a context cannot be grokked:
 
 """
 
-from dolmen.view import View
+import dolmen.view as dolmen
 
 
-class Club(View):
+class Club(dolmen.View):
     pass
