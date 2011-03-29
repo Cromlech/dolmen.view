@@ -1,6 +1,6 @@
 """
 
-  >>> grok.testing.grok(__name__)
+  >>> dolmen.testing.grok(__name__)
 
 We should find the ``cavepainting`` view for a mammoth:
 
@@ -18,11 +18,11 @@ We should find the ``cavepainting`` view for a mammoth:
   True
 
   >>> from zope.interface.verify import verifyObject
-  >>> from grokcore.view.interfaces import IGrokView
+  >>> from dolmen.view.interfaces import IGrokView
   >>> verifyObject(IGrokView, view)
   True
 
-Look up a view with a name explicitly set with ``grok.name``:
+Look up a view with a name explicitly set with ``dolmen.name``:
 
   >>> view = component.getMultiAdapter((manfred, request), name='meal')
   >>> print str(view())
@@ -33,26 +33,26 @@ There's no view 'food':
   >>> view = component.getMultiAdapter((manfred, request), name='food')
   Traceback (most recent call last):
     ...
-  ComponentLookupError: ((<grokcore.view.tests.view.view.Mammoth object at 0x...>, <zope.publisher.browser.TestRequest instance URL=http://127.0.0.1>), <InterfaceClass zope.interface.Interface>, 'food')
+  ComponentLookupError: ((<dolmen.view.tests.view.view.Mammoth object at 0x...>, <zope.publisher.browser.TestRequest instance URL=http://127.0.0.1>), <InterfaceClass zope.interface.Interface>, 'food')
 
 """
 
-import grokcore.view as grok
+import dolmen.view as dolmen
 
 
-class Mammoth(grok.Context):
+class Mammoth(dolmen.Context):
     pass
 
 
-class CavePainting(grok.View):
+class CavePainting(dolmen.View):
 
     def render(self, **kwargs):
         return 'A cave painting of a mammoth'
 
 
-class Food(grok.View):
+class Food(dolmen.View):
     """Grok says: ME NO SEE MAMMOTH, ME SEE MEAL!"""
-    grok.name('meal')
+    dolmen.name('meal')
 
     def render(self):
         return 'Mammoth burger'

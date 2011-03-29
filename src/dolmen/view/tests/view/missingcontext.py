@@ -5,12 +5,13 @@ Views without a context cannot be grokked:
   Traceback (most recent call last):
     ...
   GrokError: No module-level context for
-  <class 'grokcore.view.tests.view.missingcontext.Club'>, please use the
+  <class 'dolmen.view.tests.view.missingcontext.Club'>, please use the
   'context' directive.
 
 """
 
-import grokcore.view as grok
+from dolmen.view import View
 
-class Club(grok.View):
+
+class Club(View):
     pass

@@ -1,22 +1,25 @@
 """
 Templates with ambiguous context cannot be grokked:
 
-  >>> grok.testing.grok(__name__)
+  >>> dolmen.testing.grok(__name__)
   Traceback (most recent call last):
     ...
   GrokError: Multiple possible contexts for
-  <class 'grokcore.view.tests.view.ambiguouscontext.Club'>, please use the
+  <class 'dolmen.view.tests.view.ambiguouscontext.Club'>, please use the
   'context' directive.
 
 """
 
-import grokcore.view as grok
+import dolmen.view as dolmen
 
-class Cave(grok.Context):
+
+class Cave(dolmen.Context):
     pass
 
-class Mammoth(grok.Context):
+
+class Mammoth(dolmen.Context):
     pass
 
-class Club(grok.View):
+
+class Club(dolmen.View):
     pass

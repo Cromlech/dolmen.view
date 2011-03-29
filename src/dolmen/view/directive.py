@@ -27,4 +27,4 @@ class view(martian.Directive):
 class request(martian.Directive):
     scope = martian.CLASS_OR_MODULE
     store = martian.ONCE
-    default = IRequest
+    default = Interface

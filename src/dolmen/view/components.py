@@ -4,7 +4,7 @@ import webob
 from zope import interface
 from zope.location import Location
 from cromlech.io import IResponse
-from grokcore.view import interfaces
+from dolmen.view import interfaces
 
 
 class Response(webob.Response):

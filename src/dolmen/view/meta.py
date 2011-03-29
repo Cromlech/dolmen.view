@@ -15,7 +15,7 @@ def default_view_name(factory, module=None, **data):
 
 
 class ViewGrokker(martian.ClassGrokker):
-    martian.component(components.View)
+    martian.component(view.View)
     martian.directive(view.context)
     martian.directive(view.request)
     martian.directive(view.provides, default=IRenderer)

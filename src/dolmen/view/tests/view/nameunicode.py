@@ -1,6 +1,6 @@
 # -*- coding: latin-1 -*-
 """
-You can only pass unicode to `grok.name`:
+You can only pass unicode to `dolmen.name`:
 
   >>> pass_unicode()
   >>> pass_encodedstring()
@@ -16,16 +16,19 @@ You can only pass unicode to `grok.name`:
   unicode or ASCII.
 
 """
-import grokcore.view as grok
+import dolmen.view as dolmen
+
 
 def pass_unicode():
     class View(object):
-        grok.name(u'name')
+        dolmen.name(u'name')
+
 
 def pass_encodedstring():
     class View(object):
-        grok.name("ölkj")
+        dolmen.name("ölkj")
+
 
 def pass_object():
     class View(object):
-        grok.name(object())
+        dolmen.name(object())

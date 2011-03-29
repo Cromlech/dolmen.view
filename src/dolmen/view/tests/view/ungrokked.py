@@ -5,13 +5,12 @@ Prove that we can instantiate things from unit tests without grokking.
   
 This should not raise an exception, at least.
 
-  >>> view.static is None
-  True
   >>> view.__name__ is None
   True
   
 """
-import grokcore.view as grok
+from dolmen.view import View
 
-class Ungrokked(grok.View):
+
+class Ungrokked(View):
     pass

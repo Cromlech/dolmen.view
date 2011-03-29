@@ -6,13 +6,13 @@ rather than an arbitrary naming standard.
 
 First, do some initialization
 
-  >>> grok.testing.grok(__name__)
+  >>> dolmen.testing.grok(__name__)
   >>> manfred = Mammoth()
   >>> from zope.publisher.browser import TestRequest
   >>> request = TestRequest()
   >>> from zope import component
 
-If grok.name is used, it needs to be supplied. If not supplied, grok.name
+If dolmen.name is used, it needs to be supplied. If not supplied, dolmen.name
 defaults to the lowercase of the class:
 
   >>> view = component.getMultiAdapter((manfred, request), name='cavepainting')
@@ -41,40 +41,48 @@ Multipl IPaintStyles can now be looked up by interface, rather than name:
 
 """
 
-import grokcore.view as grok
+import dolmen.view as dolmen
 from zope.interface import Interface
 
-class Mammoth(grok.Context):
+
+class Mammoth(dolmen.Context):
     pass
+
 
 class IPaintStyle(Interface):
     pass
 
+
 class IChalk(IPaintStyle):
     pass
+
 
 class IImpressionist(IPaintStyle):
     pass
 
+
 class IRealist(IPaintStyle):
     pass
 
-class CavePainting(grok.View):
-    grok.provides(IChalk)
+
+class CavePainting(dolmen.View):
+    dolmen.provides(IChalk)
 
     def render(self):
         return "a chalk cave painting"
 
-class ImpressionistCavePainting(grok.View):
-    grok.provides(IImpressionist)
-    grok.name('')
+
+class ImpressionistCavePainting(dolmen.View):
+    dolmen.provides(IImpressionist)
+    dolmen.name('')
 
     def render(self):
         return "an impressionist cave painting"
 
-class RealistCavePainting(grok.View):
-    grok.provides(IRealist)
-    grok.name('')
+
+class RealistCavePainting(dolmen.View):
+    dolmen.provides(IRealist)
+    dolmen.name('')
 
     def render(self):
         return "a realist cave painting"

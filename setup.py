@@ -10,26 +10,22 @@ def read(*rnames):
             *rnames)).read()
 
 version = 0.1
-long_description = read'README.txt') + '\n' + read('CHANGES.txt')
+long_description = read('README.txt') + '\n' + read('CHANGES.txt')
 
 install_requires = [
     'WebOb',
     'cromlech.io',
     'grokcore.component >= 2.1',
-    'grokcore.security >= 1.5',
     'martian >= 0.13',
     'setuptools',
     'zc.buildout',
     'zope.component',
     'zope.interface',
     'zope.location',
-    'zope.schema',
     ]
 
 tests_require = [
     'zope.site',
-    'infrae.testbrowser',
-    'cromlech.dawnlight',
     'cromlech.request',
     ]
 
@@ -37,6 +33,7 @@ security_require = [
     'zope.security',
     'zope.securitypolicy',
     'zope.principalregistry',
+    'grokcore.security >= 1.5',
     ]
 
 setup(

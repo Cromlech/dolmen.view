@@ -1,22 +1,10 @@
 # -*- coding: utf-8 -*-
 
 try:
+    import martian
     import grokcore.security
+    from dolmen import view
     from cromlech.io.interfaces import IRenderer
-    from grokcore.security.util import check_permission
-    from zope.security.checker import NamesChecker, defineChecker
-
-    def make_checker(factory, view_factory, permission, method_names=None):
-        if method_names is None:
-            method_names = ['__call__']
-        if permission is not None:
-            check_permission(factory, permission)
-        if permission is None or permission == 'zope.Public':
-            checker = NamesChecker(method_names)
-        else:
-            checker = NamesChecker(method_names, permission)
-        defineChecker(view_factory, checker)
-
 
     class ViewSecurityGrokker(martian.ClassGrokker):
         martian.component(view.View)

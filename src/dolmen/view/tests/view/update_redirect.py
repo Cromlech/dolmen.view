@@ -2,7 +2,7 @@
 When a view's update() method redirects somewhere else, the template
 is not executed subsequently.
 
-  >>> grok.testing.grok(__name__)
+  >>> dolmen.testing.grok(__name__)
 
   >>> manfred = Mammoth()
 
@@ -10,7 +10,9 @@ is not executed subsequently.
   >>> request = Request.blank('/')
 
   >>> from zope.component import getMultiAdapter
-  >>> view = getMultiAdapter((manfred, request), name='cavepainting')
+  >>> from cromlech.io.interfaces import IRenderer
+  
+  >>> view = getMultiAdapter((manfred, request), IRenderer, name='cavepainting')
   >>> print view()
   None
   >>> print view.response.getStatus()
@@ -19,21 +21,18 @@ is not executed subsequently.
   somewhere-else
 
 """
-import grokcore.view as grok
+import dolmen.view as dolmen
 
-class Mammoth(grok.Context):
+
+class Mammoth(dolmen.Context):
     pass
 
-class CavePainting(grok.View):
+
+class CavePainting(dolmen.View):
+
     def update(self):
         super(CavePainting, self).update()
-        self.redirect('somewhere-else')
+        self.response.redirect("somewhere-else")
 
-
-cavepainting = grok.PageTemplate("""\
-<html>
-<body>
-<h1 tal:content="this-is-an-error" />
-</body>
-</html>
-""")
+    def render(self):
+        raise RuntimeError('This is an evil error')
