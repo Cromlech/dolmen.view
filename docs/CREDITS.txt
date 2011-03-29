@@ -1,0 +1,5 @@
+CREDITS
+=======
+
+This package was extracted from the Grok web framework.
+It has been developed by the Grok Team and the Dolmen Team.
