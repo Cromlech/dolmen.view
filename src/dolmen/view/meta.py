@@ -2,12 +2,10 @@
 # -*- coding: utf-8 -*-
 
 import martian
-from martian.error import GrokError
-from martian import util
 from dolmen import view
 from cromlech.browser.interfaces import IRenderer
+import cromlech.io
 from zope.component import provideAdapter
-from zope.interface import Interface
 
 
 def default_view_name(factory, module=None, **data):
@@ -17,7 +15,7 @@ def default_view_name(factory, module=None, **data):
 class ViewGrokker(martian.ClassGrokker):
     martian.component(view.View)
     martian.directive(view.context)
-    martian.directive(view.request)
+    martian.directive(cromlech.io.request)
     martian.directive(view.provides, default=IRenderer)
     martian.directive(view.name, get_default=default_view_name)
 
