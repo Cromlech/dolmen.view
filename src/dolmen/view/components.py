@@ -29,7 +29,7 @@ class View(Location):
         namespace['view'] = self
         return namespace
 
-   def update(self, **kwargs):
+    def update(self, **kwargs):
         self.response = self.responseFactory()
 
     def render(self, **kwargs):
