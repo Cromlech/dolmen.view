@@ -4,7 +4,7 @@ try:
     import martian
     import grokcore.security
     from dolmen import view
-    from cromlech.io.interfaces import IRenderer
+    from cromlech.browser.interfaces import IRenderer
 
     class ViewSecurityGrokker(martian.ClassGrokker):
         martian.component(view.View)

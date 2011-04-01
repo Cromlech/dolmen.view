@@ -3,12 +3,13 @@
 from zope import interface
 from zope.location import Location
 from cromlech.io import IResponse
-from dolmen.view import interfaces
-from grokcore.component import baseclass
+from grokcore.component import baseclass, implements
+from cromlech.browser import interfaces
 
 
 class View(Location):
     baseclass()
+    implements(interfaces.IRenderer)
 
     template = None
     responseFactory = None

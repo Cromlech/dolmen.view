@@ -10,11 +10,11 @@ is not executed subsequently.
   >>> request = Request.blank('/')
 
   >>> from zope.component import getMultiAdapter
-  >>> from cromlech.io.interfaces import IRenderer
+  >>> from cromlech.browser.interfaces import IRenderer
   
   >>> view = getMultiAdapter((manfred, request), IRenderer, name='cavepainting')
-  >>> print view()
-  None
+  >>> view() is view.response
+  True
   >>> print view.response.getStatus()
   302
   >>> print view.response.headers.get('Location')

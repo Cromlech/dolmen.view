@@ -14,6 +14,7 @@ long_description = read('README.txt') + '\n' + read('CHANGES.txt')
 
 install_requires = [
     'WebOb',
+    'cromlech.browser',
     'cromlech.io',
     'grokcore.component >= 2.1',
     'martian >= 0.13',
