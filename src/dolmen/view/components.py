@@ -43,6 +43,6 @@ class View(Location):
 
     def __call__(self):
         self.update()
-        if not self.response.getStatus() in [301, 302]:
+        if not self.response.status_int in [301, 302]:
             self.response.write(self.render() or u'')
         return self.response
