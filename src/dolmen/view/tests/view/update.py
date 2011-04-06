@@ -16,6 +16,7 @@ template.
 
 """
 import dolmen.view as dolmen
+from cromlech.io.tests import TestResponse
 
 
 class Mammoth(dolmen.Context):
@@ -23,6 +24,8 @@ class Mammoth(dolmen.Context):
 
 
 class CavePainting(dolmen.View):
+
+    responseFactory = TestResponse
 
     def update(self):
         super(CavePainting, self).update()

@@ -1,6 +1,6 @@
 """
 Views can also provide an interface, in which case they can be looked up (via
-getMultiAdapter) on the interface. This approach is a bit more explicit than
+query_view) on the interface. This approach is a bit more explicit than
 requiring all views to have a certain name, since this is an interface/contract
 rather than an arbitrary naming standard.
 
@@ -8,34 +8,33 @@ First, do some initialization
 
   >>> dolmen.testing.grok(__name__)
   >>> manfred = Mammoth()
-  >>> from zope.publisher.browser import TestRequest
+  >>> from cromlech.io.tests import TestRequest
   >>> request = TestRequest()
-  >>> from zope import component
+  >>> from dolmen.view.components import query_view
 
 If dolmen.name is used, it needs to be supplied. If not supplied, dolmen.name
 defaults to the lowercase of the class:
 
-  >>> view = component.getMultiAdapter((manfred, request), name='cavepainting')
+  >>> view = query_view(request, manfred, name='cavepainting')
   >>> print str(view())
   a chalk cave painting
 
-It is also possible to look up the same view by also including the interface:
+It is also possible to look up the same view by also including the interface::
 
-  >>> view = component.getMultiAdapter(
-  ...     (manfred, request), interface=IChalk, name='cavepainting')
+  >>> view = query_view(request, manfred, interface=IChalk,
+  ...                   name='cavepainting')
   >>> print str(view())
   a chalk cave painting
 
 The name can be set to '', in which case it is an 'unnamed' view:
 
-  >>> view = component.getMultiAdapter((manfred, request), interface=IRealist)
+  >>> view = query_view(request, manfred, interface=IRealist)
   >>> print str(view())
   a realist cave painting
 
-Multipl IPaintStyles can now be looked up by interface, rather than name:
+Multiple IPaintStyles can now be looked up by interface, rather than name:
 
-  >>> view = component.getMultiAdapter(
-  ...     (manfred, request), interface=IImpressionist)
+  >>> view = query_view(request, manfred, interface=IImpressionist)
   >>> print str(view())
   an impressionist cave painting
 
@@ -43,13 +42,15 @@ Multipl IPaintStyles can now be looked up by interface, rather than name:
 
 import dolmen.view as dolmen
 from zope.interface import Interface
+from cromlech.browser.interfaces import IView
+from cromlech.io.tests import TestResponse
 
 
 class Mammoth(dolmen.Context):
     pass
 
 
-class IPaintStyle(Interface):
+class IPaintStyle(IView):
     pass
 
 
@@ -68,6 +69,8 @@ class IRealist(IPaintStyle):
 class CavePainting(dolmen.View):
     dolmen.provides(IChalk)
 
+    responseFactory = TestResponse
+
     def render(self):
         return "a chalk cave painting"
 
@@ -76,6 +79,8 @@ class ImpressionistCavePainting(dolmen.View):
     dolmen.provides(IImpressionist)
     dolmen.name('')
 
+    responseFactory = TestResponse
+
     def render(self):
         return "an impressionist cave painting"
 
@@ -83,6 +88,8 @@ class ImpressionistCavePainting(dolmen.View):
 class RealistCavePainting(dolmen.View):
     dolmen.provides(IRealist)
     dolmen.name('')
+
+    responseFactory = TestResponse
 
     def render(self):
         return "a realist cave painting"

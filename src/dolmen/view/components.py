@@ -1,18 +1,19 @@
 # -*- coding: utf-8 -*-
 
 from zope import interface
+from zope.component import getMultiAdapter
 from zope.location import Location
-from cromlech.io import IResponse
+from cromlech.io import IResponse, IRequest
 from grokcore.component import baseclass, implements
-from cromlech.browser import interfaces
+from cromlech.browser.interfaces import IView
 
 
 class View(Location):
     baseclass()
-    implements(interfaces.IRenderer)
+    implements(IView)
 
     template = None
-    responseFactory = None
+    responseFactory = None  # subclass has to provide one !
 
     def __init__(self, context, request):
         self.context = context
@@ -29,10 +30,10 @@ class View(Location):
         namespace['view'] = self
         return namespace
 
-    def update(self, **kwargs):
+    def update(self, *args, **kwargs):
         self.response = self.responseFactory()
 
-    def render(self, **kwargs):
+    def render(self, *args, **kwargs):
         """This is the default render method.
         Not providing a template will make it fails.
         Override this method, if needed (eg: return a string)
@@ -41,8 +42,14 @@ class View(Location):
             raise NotImplementedError("Template is not defined.")
         return self.template.render(self)
 
-    def __call__(self):
+    def __call__(self, *args, **kwargs):
         self.update()
         if not self.response.status_int in [301, 302]:
             self.response.write(self.render() or u'')
         return self.response
+
+
+def query_view(request, context, interface=IView, name=''):
+    assert interface.isOrExtends(IView)
+    assert IRequest.providedBy(request)
+    return getMultiAdapter((context, request), interface, name=name)

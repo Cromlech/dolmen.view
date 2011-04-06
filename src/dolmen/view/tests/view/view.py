@@ -2,13 +2,14 @@
 
   >>> dolmen.testing.grok(__name__)
 
-We should find the ``cavepainting`` view for a mammoth:
+We should find the ``cavepainting`` view for a mammoth::
 
   >>> manfred = Mammoth()
-  >>> from zope.publisher.browser import TestRequest
+  >>> from zope.interface import implements
+  >>> from cromlech.io.tests import TestRequest
   >>> request = TestRequest()
   >>> from zope import component
-  >>> view = component.getMultiAdapter((manfred, request), name='cavepainting')
+  >>> view = dolmen.query_view(request, manfred, name='cavepainting')
   >>> print str(view())
   A cave painting of a mammoth
 
@@ -22,22 +23,26 @@ We should find the ``cavepainting`` view for a mammoth:
   >>> verifyObject(IView, view)
   True
 
-Look up a view with a name explicitly set with ``dolmen.name``:
+Look up a view with a name explicitly set with ``dolmen.name``::
 
-  >>> view = component.getMultiAdapter((manfred, request), name='meal')
+  >>> view = dolmen.query_view(request, manfred, name='meal')
   >>> print str(view())
   Mammoth burger
 
-There's no view 'food':
+There's no view 'food'::
 
-  >>> view = component.getMultiAdapter((manfred, request), name='food')
+  >>> view = dolmen.query_view(request, manfred, name='food')
   Traceback (most recent call last):
     ...
-  ComponentLookupError: ((<dolmen.view.tests.view.view.Mammoth object at 0x...>, <zope.publisher.browser.TestRequest instance URL=http://127.0.0.1>), <InterfaceClass zope.interface.Interface>, 'food')
+  ComponentLookupError: ((<dolmen.view.tests.view.view.Mammoth object at ...>,
+            <cromlech.io.tests.TestRequest object at 0x...>),
+            <InterfaceClass cromlech.browser.interfaces.IView>,
+            'food')
 
 """
 
 import dolmen.view as dolmen
+from cromlech.io.tests import TestResponse
 
 
 class Mammoth(dolmen.Context):
@@ -46,7 +51,9 @@ class Mammoth(dolmen.Context):
 
 class CavePainting(dolmen.View):
 
-    def render(self, **kwargs):
+    responseFactory = TestResponse
+
+    def render(self, *args, **kwargs):
         return 'A cave painting of a mammoth'
 
 
@@ -54,5 +61,7 @@ class Food(dolmen.View):
     """Grok says: ME NO SEE MAMMOTH, ME SEE MEAL!"""
     dolmen.name('meal')
 
-    def render(self):
+    responseFactory = TestResponse
+
+    def render(self, *args, **kwargs):
         return 'Mammoth burger'

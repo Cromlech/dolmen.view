@@ -3,7 +3,7 @@
 
 import martian
 from dolmen import view
-from cromlech.browser.interfaces import IRenderer
+from cromlech.browser.interfaces import IView
 import cromlech.io
 from zope.component import provideAdapter
 
@@ -16,7 +16,7 @@ class ViewGrokker(martian.ClassGrokker):
     martian.component(view.View)
     martian.directive(view.context)
     martian.directive(cromlech.io.request)
-    martian.directive(view.provides, default=IRenderer)
+    martian.directive(view.provides, default=IView)
     martian.directive(view.name, get_default=default_view_name)
 
     def execute(self, factory, config, context, request, provides, name, **kw):
