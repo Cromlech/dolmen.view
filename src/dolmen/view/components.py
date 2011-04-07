@@ -13,12 +13,12 @@ class View(Location):
     implements(IView)
 
     template = None
+    response = None
     responseFactory = None  # subclass has to provide one !
 
     def __init__(self, context, request):
         self.context = context
         self.request = request
-        self.response = None
 
     def namespace(self):
         """Returns a dictionary of namespaces that the template
