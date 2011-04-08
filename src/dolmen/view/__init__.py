@@ -2,8 +2,8 @@
 
 # directives
 from grokcore.component import Context, context, provides, name
-from cromlech.io import request
-from cromlech.browser import view
+from cromlech.io.directives import request
+from cromlech.browser.directives import view
 
 # components
 from dolmen.view.components import View, query_view
