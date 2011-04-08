@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from grokcore.component import *
+# directives
+from grokcore.component import Context, context, provides, name
+from cromlech.io import request
+from cromlech.browser import view
+
+# components
 from dolmen.view.components import View, query_view
 
 # Import this module so that it's available as soon as you import the
