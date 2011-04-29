@@ -8,7 +8,7 @@ First, do some initialization
 
   >>> dolmen.testing.grok(__name__)
   >>> manfred = Mammoth()
-  >>> from cromlech.io.tests import TestRequest
+  >>> from cromlech.io.testing import TestRequest
   >>> request = TestRequest()
   >>> from dolmen.view.components import query_view
 
@@ -42,7 +42,7 @@ Multiple IPaintStyles can now be looked up by interface, rather than name:
 
 import dolmen.view as dolmen
 from cromlech.browser.interfaces import IView
-from cromlech.io.tests import TestResponse
+from cromlech.io.testing import TestResponse
 
 
 class Mammoth(dolmen.Context):

@@ -25,8 +25,8 @@ install_requires = [
     ]
 
 tests_require = [
-    'WebOb',
     'zope.configuration',
+    'cromlech.webob',
     ]
 
 security_require = [

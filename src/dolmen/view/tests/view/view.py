@@ -6,7 +6,7 @@ We should find the ``cavepainting`` view for a mammoth::
 
   >>> manfred = Mammoth()
   >>> from zope.interface import implements
-  >>> from cromlech.io.tests import TestRequest
+  >>> from cromlech.io.testing import TestRequest
   >>> request = TestRequest()
   >>> from zope import component
   >>> view = dolmen.query_view(request, manfred, name='cavepainting')
@@ -35,14 +35,14 @@ There's no view 'food'::
   Traceback (most recent call last):
     ...
   ComponentLookupError: ((<dolmen.view.tests.view.view.Mammoth object at ...>,
-            <cromlech.io.tests.TestRequest object at 0x...>),
+            <cromlech.io.testing.TestRequest object at 0x...>),
             <InterfaceClass cromlech.browser.interfaces.IView>,
             'food')
 
 """
 
 import dolmen.view as dolmen
-from cromlech.io.tests import TestResponse
+from cromlech.io.testing import TestResponse
 
 
 class Mammoth(dolmen.Context):

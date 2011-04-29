@@ -1,15 +1,10 @@
 # -*- coding: utf-8 -*-
 
-import unittest
 import doctest
-import zope.component.hooks
+import unittest
 from pkg_resources import resource_listdir
 
 optionflags = doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS
-
-
-def setUp(*args, **kwargs):
-    zope.component.hooks.setHooks()
 
 
 def suiteFromPackage(name):
@@ -23,10 +18,7 @@ def suiteFromPackage(name):
         if filename == '__init__.py':
             continue
         dottedname = 'dolmen.view.tests.%s.%s' % (name, filename[:-3])
-        test = doctest.DocTestSuite(
-            dottedname,
-            setUp=setUp,
-            optionflags=optionflags)
+        test = doctest.DocTestSuite(dottedname, optionflags=optionflags)
         suite.addTest(test)
     return suite
 

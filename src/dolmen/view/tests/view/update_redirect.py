@@ -6,25 +6,24 @@ is not executed subsequently.
 
   >>> manfred = Mammoth()
 
-  >>> from webob import Request
+  >>> from cromlech.io.testing import TestRequest
   >>> from zope.interface import implements
   >>> from cromlech.io import IRequest
-  >>> class TestRequest(Request):
-  ...     implements(IRequest)
-  >>> request = TestRequest.blank('/')
+
+  >>> request = TestRequest(path='/')
 
   >>> from dolmen.view.components import query_view
   >>> view = query_view(request, manfred, name='cavepainting')
   >>> view() is view.response
   True
-  >>> print view.response.getStatus()
+  >>> print view.response.status_int
   302
-  >>> print view.response.headers.get('Location')
+  >>> print view.response.headers['Location']
   somewhere-else
 
 """
 import dolmen.view as dolmen
-from cromlech.io.tests import TestResponse
+from cromlech.webob.response import Response
 
 
 class Mammoth(dolmen.Context):
@@ -33,7 +32,7 @@ class Mammoth(dolmen.Context):
 
 class CavePainting(dolmen.View):
 
-    responseFactory = TestResponse
+    responseFactory = Response
 
     def update(self):
         super(CavePainting, self).update()
