@@ -1,0 +1,68 @@
+Security
+========
+
+  >>> import dolmen.view as dolmen
+  >>> from grokcore.security import require
+  >>> from cromlech.io.testing import TestResponse, TestRequest
+  >>> from grokcore.component import testing
+
+
+  >>> class Mammoth(dolmen.Context):
+  ...     pass
+
+
+  >>> class Public(dolmen.View):
+  ...    dolmen.context(Mammoth)
+  ...    require('zope.View')
+  ...
+  ...    responseFactory = TestResponse
+  ...
+  ...    def render(self, *args, **kwargs):
+  ...        return u"Shaven mammoth !! YUCK"
+
+  >>> testing.grok_component('nude', Public)
+  True
+
+
+  >>> class Private(dolmen.View):
+  ...    dolmen.context(Mammoth)
+  ...    require('zope.ManageContent')
+  ...
+  ...    responseFactory = TestResponse
+  ...
+  ...    def render(self, *args, **kwargs):
+  ...        return u"Hairy mammoth won't shave in public !"
+
+  >>> testing.grok_component('prude', Private)
+  True
+
+  >>> context = Mammoth()
+  >>> request = TestRequest()
+
+
+Security declaration
+--------------------
+
+  >>> from zope.security.proxy import ProxyFactory
+  >>> from zope.security.management import newInteraction, endInteraction
+  >>> from zope.security.testing import Principal, Participation
+  >>> newInteraction(Participation(Principal('cromlech.user')))
+
+Allowed
+~~~~~~~
+
+  >>> view = dolmen.query_view(request, context, name='public')
+  >>> ProxyFactory(view).render()
+  u'Shaven mammoth !! YUCK'
+
+
+Disallowed
+~~~~~~~~~~
+
+  >>> view = dolmen.query_view(request, context, name='private')
+  >>> ProxyFactory(view).render()
+  Traceback (most recent call last):
+  ...
+  Unauthorized: (<Private object at ...>, 'render', 'zope.ManageContent')
+
+  >>> endInteraction()
