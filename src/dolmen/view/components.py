@@ -3,7 +3,6 @@
 from cromlech.browser.interfaces import IView
 from cromlech.io import IRequest
 from grokcore.component import baseclass, implements
-from zope import interface
 from zope.component import getMultiAdapter
 from zope.location import Location
 

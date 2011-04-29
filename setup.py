@@ -20,20 +20,20 @@ install_requires = [
     'martian >= 0.13',
     'setuptools',
     'zope.component',
-    'zope.interface',
     'zope.location',
     ]
 
 tests_require = [
-    'zope.configuration',
     'cromlech.webob',
+    'zope.configuration',
+    'zope.interface',
     ]
 
 security_require = [
+    'grokcore.security >= 1.5',
+    'zope.principalregistry',
     'zope.security',
     'zope.securitypolicy',
-    'zope.principalregistry',
-    'grokcore.security >= 1.5',
     ]
 
 setup(
