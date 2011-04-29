@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import sys
 from zope.configuration.config import ConfigurationMachine
 from grokcore.component import zcml
 

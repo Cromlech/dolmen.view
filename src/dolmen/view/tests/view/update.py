@@ -5,7 +5,7 @@ template.
 
   >>> dolmen.testing.grok(__name__)
 
-  >>> from zope.publisher.browser import TestRequest
+  >>> from cromlech.io.testing import TestRequest
   >>> from zope.component import getMultiAdapter
 
   >>> manfred = Mammoth()
@@ -16,7 +16,7 @@ template.
 
 """
 import dolmen.view as dolmen
-from cromlech.io.tests import TestResponse
+from cromlech.io.testing import TestResponse
 
 
 class Mammoth(dolmen.Context):

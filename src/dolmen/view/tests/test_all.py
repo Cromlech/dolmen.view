@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import re
 import unittest
 import doctest
 import zope.component.hooks

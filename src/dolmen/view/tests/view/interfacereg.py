@@ -41,7 +41,6 @@ Multiple IPaintStyles can now be looked up by interface, rather than name:
 """
 
 import dolmen.view as dolmen
-from zope.interface import Interface
 from cromlech.browser.interfaces import IView
 from cromlech.io.tests import TestResponse
 

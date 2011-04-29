@@ -13,21 +13,20 @@ version = 0.1
 long_description = read('README.txt') + '\n' + read('CHANGES.txt')
 
 install_requires = [
-    'WebOb',
     'cromlech.browser',
     'cromlech.io',
     'grokcore.component >= 2.1',
+    'grokcore.security',
     'martian >= 0.13',
     'setuptools',
-    'zc.buildout',
     'zope.component',
     'zope.interface',
     'zope.location',
     ]
 
 tests_require = [
-    'zope.site',
-    'cromlech.webob',
+    'WebOb',
+    'zope.configuration',
     ]
 
 security_require = [

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
+from cromlech.browser.interfaces import IView
+from cromlech.io import IRequest
+from grokcore.component import baseclass, implements
 from zope import interface
 from zope.component import getMultiAdapter
 from zope.location import Location
-from cromlech.io import IResponse, IRequest
-from grokcore.component import baseclass, implements
-from cromlech.browser.interfaces import IView
 
 
 class View(Location):
