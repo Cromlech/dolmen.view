@@ -17,7 +17,8 @@ def suiteFromPackage(name):
             continue
         if filename == '__init__.py':
             continue
-        dottedname = 'dolmen.view.tests_nosecurity.%s.%s' % (name, filename[:-3])
+        dottedname = 'dolmen.view.tests_nosecurity.%s.%s' % (name,
+                                                             filename[:-3])
         test = doctest.DocTestSuite(dottedname, optionflags=optionflags)
         suite.addTest(test)
     return suite

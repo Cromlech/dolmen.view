@@ -5,8 +5,8 @@ Views without a context cannot be grokked:
   Traceback (most recent call last):
     ...
   GrokError: No module-level context for
-  <class 'dolmen.view.tests_nosecurity.view.missingcontext.Club'>, please use the
-  'context' directive.
+  <class 'dolmen.view.tests_nosecurity.view.missingcontext.Club'>, please use
+  the 'context' directive.
 
 """
 
