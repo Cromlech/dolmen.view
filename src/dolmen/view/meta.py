@@ -20,7 +20,7 @@ class ViewGrokker(martian.ClassGrokker):
 
     def execute(self, factory, config, context, request, provides, name, **kw):
 
-        factory.__view_name__ = name
+        factory.__component_name__ = name
         adapts = (context, request)
 
         config.action(
