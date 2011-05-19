@@ -52,8 +52,11 @@ Allowed
 ~~~~~~~
 
   >>> view = dolmen.query_view(request, context, name='public')
-  >>> ProxyFactory(view).render()
+  >>> proxy = ProxyFactory(view)
+  >>> proxy.render()
   u'Shaven mammoth !! YUCK'
+  >>> proxy()
+  <cromlech.io.testing.TestResponse object at ...>
 
 
 Disallowed

@@ -10,8 +10,8 @@ def read(*rnames):
             os.path.join(os.path.dirname(__file__), 'docs'),
             *rnames)).read()
 
-version = '0.1a1'
-long_description = read('README.txt') + '\n' + read('CHANGES.txt')
+version = '0.1a2'
+long_description = read('README.txt') + '\n' + read('HISTORY.txt')
 
 install_requires = [
     'cromlech.browser',

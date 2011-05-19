@@ -42,9 +42,9 @@ class View(Location):
         return self.template.render(self)
 
     def __call__(self, *args, **kwargs):
-        self.update()
+        self.update(*args, **kwargs)
         if not self.response.status_int in [301, 302]:
-            self.response.write(self.render() or u'')
+            self.response.write(self.render(*args, **kwargs) or u'')
         return self.response
 
 

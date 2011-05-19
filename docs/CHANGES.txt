@@ -1,8 +1,0 @@
-Changes
-=======
-
-0.1a1
-----------------
-
-- Fork from `grokcore.view`
-- new API

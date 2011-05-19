@@ -1,0 +1,15 @@
+Changes
+=======
+
+0.1a2 (2011-05-19)
+------------------
+
+- Corrected the security grokking that used to protect views on `IRenderer`
+  and not `IView`.
+
+
+0.1a1 (2011-05-10)
+------------------
+
+- Fork from `grokcore.view`
+- new API
