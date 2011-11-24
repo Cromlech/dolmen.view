@@ -10,12 +10,13 @@ def read(*rnames):
             os.path.join(os.path.dirname(__file__), 'docs'),
             *rnames)).read()
 
-version = '0.1a2'
+version = '0.2a1'
 long_description = read('README.txt') + '\n' + read('HISTORY.txt')
 
 install_requires = [
     'cromlech.browser',
     'cromlech.io',
+    'cromlech.i18n',
     'grokcore.component >= 2.1',
     'grokcore.security',
     'martian >= 0.13',

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from cromlech.browser import IView, negotiate
+from cromlech.browser import IView
+from cromlech.i18n import ILanguage
 from cromlech.io import IRequest
 from grokcore.component import baseclass, implements
 from zope.component import getMultiAdapter
@@ -34,7 +35,7 @@ class View(Location):
 
     @property
     def target_language(self):
-        return negotiate(self.request)
+        return ILanguage(self.request)
 
     def render(self, *args, **kwargs):
         """This is the default render method.

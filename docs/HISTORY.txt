@@ -1,6 +1,12 @@
 Changes
 =======
 
+0.2a1 (2011-11-24)
+------------------
+
+- Added i18n capabilities using the new package `cromlech.i18n`.
+
+
 0.1a2 (2011-05-19)
 ------------------
 
