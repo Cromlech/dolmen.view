@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from cromlech.browser import IView, ILayout, ITemplate
-from cromlech.browser.exceptions import ResponseRedirect
-from cromlech.browser.utils import redirect_response
+from cromlech.browser.exceptions import HTTPRedirect
+from cromlech.browser.utils import redirect_exception_response
 from cromlech.i18n import ILanguage
 from cromlech.io import IRequest
 from grokcore.component import baseclass, implements
@@ -41,9 +41,8 @@ def layout_renderer(name=""):
             view.update(*args, **kwargs)
             layout = query_view_layout(view.request, view, name)
             return layout(view.render(*args, **kwargs), view=view)
-        except ResponseRedirect, e:
-            return redirect_response(
-                view.responseFactory, e.location, code=e.code)
+        except HTTPRedirect, exc:
+            return redirect_exception_response(view.responseFactory, exc)
     return view_layout_call
 
 
@@ -106,6 +105,5 @@ class View(Location):
             self.response = self.responseFactory()
             self.response.write(result or u'')
             return self.response
-        except ResponseRedirect, e:
-            return redirect_response(
-                self.responseFactory, e.location, code=e.code)
+        except HTTPRedirect, exc:
+            return redirect_exception_response(self.responseFactory, exc)

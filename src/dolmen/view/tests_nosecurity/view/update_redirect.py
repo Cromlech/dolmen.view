@@ -17,12 +17,12 @@ is not executed subsequently.
   >>> view = query_view(request, manfred, name='cavepainting')
   >>> response = view()
   >>> response.status, response.headers
-  ('302 - Found', {'Location': 'http://localhost/my_script'})
+  ('307 Temporary Redirect', {'Location': 'http://localhost/my_script'})
 
 """
 import dolmen.view as dolmen
 from cromlech.browser.testing import TestHTTPResponse
-from cromlech.browser.exceptions import TemporaryRedirect
+from cromlech.browser.exceptions import HTTPTemporaryRedirect
 
 
 class Mammoth(dolmen.Context):
@@ -34,7 +34,7 @@ class CavePainting(dolmen.View):
     responseFactory = TestHTTPResponse
 
     def update(self):
-        raise TemporaryRedirect('http://localhost/my_script')
+        raise HTTPTemporaryRedirect('http://localhost/my_script')
 
     def render(self):
         raise RuntimeError('This is an evil error')

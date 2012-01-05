@@ -1,6 +1,19 @@
 Changes
 =======
 
+0.3a1 (2012-05-01)
+------------------
+
+- Changed the inner flow of the View component. `update` is no longer
+  responsible for the instanciation of the response. Everything linked
+  to the response handling has been moved in `__call__`.
+
+- Added a handling of the `HTTPRedirection` exceptions from
+  ``cromlech.browser``.
+
+- Added utility methods to query a view layout and a view template.
+
+
 0.2a1 (2011-11-24)
 ------------------
 

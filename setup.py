@@ -14,7 +14,7 @@ version = '0.3a1'
 long_description = read('README.txt') + '\n' + read('HISTORY.txt')
 
 install_requires = [
-    'cromlech.browser >= 0.3a1',
+    'cromlech.browser >= 0.3a2',
     'cromlech.io >= 0.2a1',
     'cromlech.i18n',
     'grokcore.component >= 2.1',
