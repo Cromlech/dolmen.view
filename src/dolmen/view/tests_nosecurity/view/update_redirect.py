@@ -2,7 +2,8 @@
 When a view's update() method redirects somewhere else, the template
 is not executed subsequently.
 
-  >>> dolmen.testing.grok(__name__)
+  >>> from dolmen.view import testing
+  >>> testing.grok(__name__)
 
   >>> manfred = Mammoth()
 
@@ -14,16 +15,14 @@ is not executed subsequently.
 
   >>> from dolmen.view.components import query_view
   >>> view = query_view(request, manfred, name='cavepainting')
-  >>> view() is view.response
-  True
-  >>> print view.response.status_int
-  302
-  >>> print view.response.headers['Location']
-  somewhere-else
+  >>> response = view()
+  >>> response.status, response.headers
+  ('302 - Found', {'Location': 'http://localhost/my_script'})
 
 """
 import dolmen.view as dolmen
-from cromlech.webob.response import Response
+from cromlech.browser.testing import TestHTTPResponse
+from cromlech.browser.exceptions import TemporaryRedirect
 
 
 class Mammoth(dolmen.Context):
@@ -32,11 +31,10 @@ class Mammoth(dolmen.Context):
 
 class CavePainting(dolmen.View):
 
-    responseFactory = Response
+    responseFactory = TestHTTPResponse
 
     def update(self):
-        super(CavePainting, self).update()
-        self.response.redirect("somewhere-else")
+        raise TemporaryRedirect('http://localhost/my_script')
 
     def render(self):
         raise RuntimeError('This is an evil error')
