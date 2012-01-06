@@ -10,7 +10,7 @@ def read(*rnames):
             os.path.join(os.path.dirname(__file__), 'docs'),
             *rnames)).read()
 
-version = '0.3a1'
+version = '0.3a2'
 long_description = read('README.txt') + '\n' + read('HISTORY.txt')
 
 install_requires = [

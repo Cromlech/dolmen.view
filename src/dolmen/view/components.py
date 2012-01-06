@@ -13,19 +13,26 @@ from zope.location import Location
 def query_view(request, context, interface=IView, name=''):
     assert interface.isOrExtends(IView)
     assert IRequest.providedBy(request)
-    return getMultiAdapter((context, request), interface, name=name)
+    return getMultiAdapter(
+        (context, request), interface, name=name)
 
 
-def query_view_template(view):
+def query_view_template(view, interface=ITemplate, name=""):
     """Returns a template associated to a view, or None.
     """
-    return queryMultiAdapter((view, view.request), ITemplate)
+    assert IView.providedBy(view)
+    assert interface.isOrExtends(ITemplate)
+    return queryMultiAdapter(
+        (view, view.request), interface, name=name)
 
 
-def query_view_layout(request, view, name=""):
+def query_view_layout(view, interface=ILayout, name=""):
     """Returns a layout associated to the view's request and context.
     """
-    return queryMultiAdapter((view.request, view.context), ILayout, name=name)
+    assert IView.providedBy(view)
+    assert interface.isOrExtends(ILayout)
+    return queryMultiAdapter(
+        (view.request, view.context), interface, name=name)
 
 
 def layout_renderer(name=""):
@@ -39,7 +46,7 @@ def layout_renderer(name=""):
         """
         try:
             view.update(*args, **kwargs)
-            layout = query_view_layout(view.request, view, name)
+            layout = query_view_layout(view, name=name)
             return layout(view.render(*args, **kwargs), view=view)
         except HTTPRedirect, exc:
             return redirect_exception_response(view.responseFactory, exc)
