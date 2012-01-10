@@ -6,14 +6,14 @@ from cromlech.browser.utils import redirect_exception_response
 from cromlech.i18n import ILanguage
 from cromlech.io import IRequest
 from grokcore.component import baseclass, implements
-from zope.component import getMultiAdapter
+from zope.component import queryMultiAdapter
 from zope.location import Location
 
 
 def query_view(request, context, interface=IView, name=''):
     assert interface.isOrExtends(IView)
     assert IRequest.providedBy(request)
-    return getMultiAdapter(
+    return queryMultiAdapter(
         (context, request), interface, name=name)
 
 
