@@ -1,6 +1,16 @@
 Changes
 =======
 
+0.3a3 (2012-01-10)
+------------------
+
+- Fixed import errors and dependencies
+
+- Query functions now uses `queryMultiAdapter` instead of `getMultiAdapter`.
+  You no longer need to catch errors while querying. None is now returned
+  if the queried component is missing. Tests have been modified accordingly.
+
+
 0.3a2 (2012-01-06)
 ------------------
 

@@ -32,12 +32,8 @@ Look up a view with a name explicitly set with ``dolmen.name``::
 There's no view 'food'::
 
   >>> view = dolmen.query_view(request, manfred, name='food')
-  Traceback (most recent call last):
-    ...
-  ComponentLookupError: ((<dolmen.view.tests_nosecurity.view.view.Mammoth ...>,
-            <cromlech.io.testing.TestRequest object at 0x...>),
-            <InterfaceClass cromlech.browser.interfaces.IView>,
-            'food')
+  >>> print view
+  None
 
 """
 
