@@ -38,7 +38,7 @@ There's no view 'food'::
 """
 
 import dolmen.view as dolmen
-from cromlech.io.testing import TestResponse
+from cromlech.browser.testing import TestHTTPResponse
 
 
 class Mammoth(dolmen.Context):
@@ -47,7 +47,7 @@ class Mammoth(dolmen.Context):
 
 class CavePainting(dolmen.View):
 
-    responseFactory = TestResponse
+    responseFactory = TestHTTPResponse
 
     def render(self, *args, **kwargs):
         return 'A cave painting of a mammoth'
@@ -57,7 +57,7 @@ class Food(dolmen.View):
     """Grok says: ME NO SEE MAMMOTH, ME SEE MEAL!"""
     dolmen.name('meal')
 
-    responseFactory = TestResponse
+    responseFactory = TestHTTPResponse
 
     def render(self, *args, **kwargs):
         return 'Mammoth burger'

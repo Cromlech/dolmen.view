@@ -8,5 +8,6 @@ from cromlech.browser.directives import view
 
 # components
 from dolmen.view.components import View
+from dolmen.view.components import make_view_response, make_layout_response
 from dolmen.view.components import (
-    query_view, layout_renderer, query_view_layout, query_view_template)
+    query_view, query_view_layout, query_view_template)

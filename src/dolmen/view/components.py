@@ -35,22 +35,24 @@ def query_view_layout(view, interface=ILayout, name=""):
         (view.request, view.context), interface, name=name)
 
 
-def layout_renderer(name=""):
-    """Factory allowing to generate a view method able to embed a view's
-    rendering inside the layout with the given name.
-    """
-    def view_layout_call(view, *args, **kwargs):
-        """This is a view method-like function that allows the view to
-        rendering itself in a layout. It can be used as a view __call__
-        replacer.
-        """
-        try:
-            view.update(*args, **kwargs)
-            layout = query_view_layout(view, name=name)
-            return layout(view.render(*args, **kwargs), view=view)
-        except HTTPRedirect, exc:
-            return redirect_exception_response(view.responseFactory, exc)
-    return view_layout_call
+def make_view_response(view, result, *args, **kwargs):
+    response = view.responseFactory()
+    response.write(result or u'')
+    return response
+
+
+def make_layout_response(view, result, name=None, *args, **kwargs):
+    if name is None:
+        name = getattr(view, 'layoutName', "")
+    layout = query_view_layout(view, name=name)
+    if layout is not None:
+        layout.update()
+        wrapped = layout.render(content=result, view=view)
+        response = view.responseFactory()
+        response.write(wrapped or u'')
+        return response
+    raise RuntimeError(
+        'Unable to resolve the layout (name: %r) for %r' % (name, view))
 
 
 class View(Location):
@@ -64,6 +66,7 @@ class View(Location):
     template = None
     response = None
     responseFactory = None  # subclass has to provide one !
+    make_response = make_view_response
 
     def __init__(self, context, request):
         self.context = context
@@ -109,8 +112,6 @@ class View(Location):
         try:
             self.update(*args, **kwargs)
             result = self.render(*args, **kwargs)
-            self.response = self.responseFactory()
-            self.response.write(result or u'')
-            return self.response
+            return self.make_response(result, *args, **kwargs)
         except HTTPRedirect, exc:
             return redirect_exception_response(self.responseFactory, exc)
