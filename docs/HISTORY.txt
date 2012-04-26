@@ -1,6 +1,15 @@
 Changes
 =======
 
+0.5 (2012-04-26)
+----------------
+
+- `View` has been splitted in 2 other non-grokked sub-components.
+  `ViewCanvas` defines the base behavior of a ``dolmen.view`` `IView`.
+  `ModelView` inherits from `ViewCanvas` and extends it to include the
+  notion of context and request bound to the view.
+
+
 0.4 (2012-01-17)
 ----------------
 

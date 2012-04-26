@@ -55,46 +55,31 @@ def make_layout_response(view, result, name=None, *args, **kwargs):
         'Unable to resolve the layout (name: %r) for %r' % (name, view))
 
 
-class View(Location):
-    """A View implements `IView` that is an extended version of a simple
-    IHTTPRenderer. It's articulated around 3 methods :
+class ViewCanvas(Location):
+    """A ViewCanvas implements `IView` that is an extended version
+    of a simple IHTTPRenderer. It's articulated around 3 methods :
     `update`, `render` and `__call__`.
     """
-    baseclass()
     implements(IView)
 
     template = None
     response = None
-    responseFactory = None  # subclass has to provide one !
     make_response = make_view_response
 
-    def __init__(self, context, request):
-        self.context = context
-        self.request = request
+    target_language = None  # subclass to override or use `update`.
+    responseFactory = None  # subclass has to provide one.
 
     def namespace(self):
         """Returns a dictionary of namespaces that the template
         implementation expects to always be available.
         """
-        namespace = {}
-        namespace['context'] = self.context
-        namespace['request'] = self.request
-        namespace['view'] = self
-        return namespace
+        return {'view': self}
 
     def update(self, *args, **kwargs):
         """Update is called prior to any rendering. This method is left
         empty on purpose, so it can be overriden easily.
         """
         pass
-
-    @property
-    def target_language(self):
-        """Returns the prefered language by adapting the request.
-        If no adapter thus no language is found, None is returned.
-        None will, most of the time, mean 'no translation'.
-        """
-        return ILanguage(self.request, None)
 
     def render(self, *args, **kwargs):
         """This is the default render method.
@@ -115,3 +100,37 @@ class View(Location):
             return self.make_response(result, *args, **kwargs)
         except HTTPRedirect, exc:
             return redirect_exception_response(self.responseFactory, exc)
+
+
+class ModelView(ViewCanvas):
+    """A ModelView is a component bound to a model and a request.
+    It is meant to be used in an MVC-based application.
+    """
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def namespace(self):
+        return {
+            'view': self,
+            'context': self.context,
+            'request': self.request,
+            }
+
+    @property
+    def target_language(self):
+        """Returns the prefered language by adapting the request.
+        If no adapter thus no language is found, None is returned.
+        None will, most of the time, mean 'no translation'.
+        """
+        return ILanguage(self.request, None)
+
+
+class View(ModelView):
+    """The grokkable version of a ModelView.
+    The grokking process provides a `__component_name__` and register
+    the component as a multi adapter on context and request.
+    Please note that the security protection will only work on a
+    grokked View.
+    """
+    baseclass()

@@ -17,7 +17,9 @@ is not executed subsequently.
   >>> view = query_view(request, manfred, name='cavepainting')
   >>> response = view()
   >>> response.status, response.headers
-  ('307 Temporary Redirect', {'Location': 'http://localhost/my_script'})
+  ('307 Temporary Redirect', {'Content-Length': '0',
+                              'Content-Type': 'text/plain',
+                              'Location': 'http://localhost/my_script'})
 
 """
 import dolmen.view as dolmen
