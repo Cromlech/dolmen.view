@@ -14,12 +14,10 @@ version = '0.5'
 long_description = read('README.txt') + '\n' + read('HISTORY.txt')
 
 install_requires = [
-    'cromlech.browser >= 0.4',
-    'cromlech.io >= 0.2a1',
+    'cromlech.browser >= 0.5',
     'cromlech.i18n',
     'grokcore.component >= 2.1',
-    'grokcore.security',
-    'martian >= 0.13',
+    'martian >= 0.14',
     'setuptools',
     'zope.component',
     'zope.location',
@@ -33,9 +31,8 @@ tests_require = [
 
 security_require = [
     'grokcore.security >= 1.5',
-    'zope.principalregistry',
+    'zope.dottedname',  # Bug, needed by grokcore.security but not declared
     'zope.security',
-    'zope.securitypolicy',
     ]
 
 setup(

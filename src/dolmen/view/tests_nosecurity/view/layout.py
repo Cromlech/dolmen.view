@@ -5,10 +5,10 @@
 We should find the ``index`` view for a mammoth::
 
   >>> from zope.interface import implements
-  >>> from cromlech.browser.testing import TestHTTPRequest
+  >>> from cromlech.browser.testing import TestRequest
 
   >>> manfred = Mammoth('Manfred')
-  >>> request = TestHTTPRequest()
+  >>> request = TestRequest()
   >>> view = dolmen.query_view(request, manfred, name='index')
   >>> assert view is not None
 
@@ -35,11 +35,11 @@ default value for the lookup. We can alter that with the `layoutName` attr::
 We can now register the layout as a multi adapter::
 
   >>> from zope.component import provideAdapter
-  >>> from cromlech.browser.testing import IHTTPRequest, ILayout
+  >>> from cromlech.browser.testing import IRequest, ILayout
   
-  >>> provideAdapter(Cave, (IHTTPRequest, Mammoth), ILayout, name='cave')
-  >>> provideAdapter(Food, (IHTTPRequest, Mammoth), ILayout, name='food')
-  >>> provideAdapter(Revealing, (IHTTPRequest, Mammoth), ILayout, name='')
+  >>> provideAdapter(Cave, (IRequest, Mammoth), ILayout, name='cave')
+  >>> provideAdapter(Food, (IRequest, Mammoth), ILayout, name='food')
+  >>> provideAdapter(Revealing, (IRequest, Mammoth), ILayout, name='')
 
 The view should now render::
 
@@ -67,7 +67,7 @@ import dolmen.view as dolmen
 from dolmen.view import testing
 from cromlech.browser import ILayout
 from zope.interface import implements
-from cromlech.browser.testing import TestLayout, TestHTTPResponse
+from cromlech.browser.testing import TestLayout, TestResponse
 
 
 class Mammoth(dolmen.Context):
@@ -77,24 +77,36 @@ class Mammoth(dolmen.Context):
 
 
 class Cave(TestLayout):
-   def render(self, content="", *args, **kwargs):
+
+    def __init__(self, request, view):
+        pass
+
+    def __call__(self, content, **kwargs):
         return u"<div id='painting'>%s</div>" % content
 
 
 class Food(TestLayout):
-   def render(self, content="", *args, **kwargs):
-        return u"<div id='food'>%s</div>" % content
 
+    def __init__(self, request, view):
+        pass
+
+    def __call__(self, content, **kwargs):
+        return u"<div id='food'>%s</div>" % content
+    
 
 class Revealing(TestLayout):
-   def render(self, view=None, *args, **kwargs):
-        return 'Layout for %r' % view
+
+    def __init__(self, request, view):
+        pass
+
+    def __call__(self, content, **kwargs):
+        return 'Layout for %r' % kwargs.get('view', None)
 
 
 class MammothView(dolmen.View):
     dolmen.name('index')
 
-    responseFactory = TestHTTPResponse
+    responseFactory = TestResponse
     make_response = dolmen.make_layout_response
 
     def render(self, *args, **kwargs):

@@ -4,11 +4,14 @@
 
 We should find the ``cavepainting`` view for a mammoth::
 
-  >>> manfred = Mammoth()
   >>> from zope.interface import implements
-  >>> from cromlech.io.testing import TestRequest
-  >>> request = TestRequest()
   >>> from zope import component
+
+  >>> from cromlech.browser.testing import TestRequest
+  >>> request = TestRequest()
+
+  >>> manfred = Mammoth()
+
   >>> view = dolmen.query_view(request, manfred, name='cavepainting')
   >>> print str(view())
   A cave painting of a mammoth
@@ -38,7 +41,7 @@ There's no view 'food'::
 """
 
 import dolmen.view as dolmen
-from cromlech.browser.testing import TestHTTPResponse
+from cromlech.browser.testing import TestResponse
 
 
 class Mammoth(dolmen.Context):
@@ -47,7 +50,7 @@ class Mammoth(dolmen.Context):
 
 class CavePainting(dolmen.View):
 
-    responseFactory = TestHTTPResponse
+    responseFactory = TestResponse
 
     def render(self, *args, **kwargs):
         return 'A cave painting of a mammoth'
@@ -57,7 +60,7 @@ class Food(dolmen.View):
     """Grok says: ME NO SEE MAMMOTH, ME SEE MEAL!"""
     dolmen.name('meal')
 
-    responseFactory = TestHTTPResponse
+    responseFactory = TestResponse
 
     def render(self, *args, **kwargs):
         return 'Mammoth burger'

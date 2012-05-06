@@ -7,7 +7,7 @@ is not executed subsequently.
 
   >>> manfred = Mammoth()
 
-  >>> from cromlech.io.testing import TestRequest
+  >>> from cromlech.browser.testing import TestRequest
   >>> from zope.interface import implements
   >>> from cromlech.io import IRequest
 
@@ -23,7 +23,7 @@ is not executed subsequently.
 
 """
 import dolmen.view as dolmen
-from cromlech.browser.testing import TestHTTPResponse
+from cromlech.browser.testing import TestResponse
 from cromlech.browser.exceptions import HTTPTemporaryRedirect
 
 
@@ -33,7 +33,7 @@ class Mammoth(dolmen.Context):
 
 class CavePainting(dolmen.View):
 
-    responseFactory = TestHTTPResponse
+    responseFactory = TestResponse
 
     def update(self):
         raise HTTPTemporaryRedirect('http://localhost/my_script')

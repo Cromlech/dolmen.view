@@ -8,7 +8,7 @@ First, do some initialization
 
   >>> dolmen.testing.grok(__name__)
   >>> manfred = Mammoth()
-  >>> from cromlech.io.testing import TestRequest
+  >>> from cromlech.browser.testing import TestRequest
   >>> request = TestRequest()
   >>> from dolmen.view.components import query_view
 

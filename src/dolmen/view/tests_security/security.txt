@@ -3,9 +3,8 @@ Security
 
   >>> import dolmen.view as dolmen
   >>> from grokcore.security import require
-  >>> from cromlech.io.testing import TestResponse, TestRequest
+  >>> from cromlech.browser.testing import TestResponse, TestRequest
   >>> from grokcore.component import testing
-
 
   >>> class Mammoth(dolmen.Context):
   ...     pass

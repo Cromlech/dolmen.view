@@ -3,7 +3,7 @@
 
 import martian
 from dolmen import view
-from cromlech.browser.interfaces import IView
+from cromlech.browser import IView
 from zope.component import provideAdapter
 
 

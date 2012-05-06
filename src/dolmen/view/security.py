@@ -4,7 +4,7 @@ try:
     import martian
     import grokcore.security
     from dolmen import view
-    from cromlech.browser.interfaces import IView
+    from cromlech.browser import IRenderable
 
     class ViewSecurityGrokker(martian.ClassGrokker):
         martian.component(view.View)
@@ -12,7 +12,7 @@ try:
 
         def execute(self, factory, config, permission, **kw):
             # we can also check here for ISecuredItem
-            for method_name in IView:
+            for method_name in IRenderable:
                 config.action(
                     discriminator=('protectName', factory, method_name),
                     callable=grokcore.security.util.protect_getattr,

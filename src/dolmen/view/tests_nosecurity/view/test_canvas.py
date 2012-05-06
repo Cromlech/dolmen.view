@@ -9,12 +9,12 @@
 
 """
 import dolmen.view as dolmen
-from cromlech.browser.testing import TestHTTPResponse
+from cromlech.browser.testing import TestResponse
 
 
 class TrollPainting(dolmen.ViewCanvas):
 
-    responseFactory = TestHTTPResponse
+    responseFactory = TestResponse
 
     def update(self):
         self.painting = u"A nice painting."
