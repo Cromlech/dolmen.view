@@ -42,7 +42,7 @@ Multiple IPaintStyles can now be looked up by interface, rather than name:
 
 import dolmen.view as dolmen
 from cromlech.browser.interfaces import IView
-from cromlech.io.testing import TestResponse
+from cromlech.browser.testing import TestResponse
 
 
 class Mammoth(dolmen.Context):

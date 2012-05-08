@@ -3,8 +3,7 @@
 # directives
 from grokcore.component import Context, context, provides, name
 from grokcore.component import title, description
-from cromlech.io.directives import request
-from cromlech.browser.directives import view
+from cromlech.browser.directives import request, view
 
 # components
 from dolmen.view.components import ViewCanvas, ModelView, View

@@ -6,18 +6,18 @@ template.
   >>> from dolmen.view import testing
   >>> testing.grok(__name__)
 
-  >>> from cromlech.io.testing import TestRequest
-  >>> from zope.component import getMultiAdapter
-
+  >>> from cromlech.browser.testing import TestRequest
   >>> manfred = Mammoth()
   >>> request = TestRequest()
+
+  >>> from zope.component import getMultiAdapter
   >>> view = getMultiAdapter((manfred, request), name='cavepainting')
   >>> print str(view())
   red
 
 """
 import dolmen.view as dolmen
-from cromlech.io.testing import TestResponse
+from cromlech.browser.testing import TestResponse
 
 
 class Mammoth(dolmen.Context):

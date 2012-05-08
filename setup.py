@@ -10,7 +10,7 @@ def read(*rnames):
             os.path.join(os.path.dirname(__file__), 'docs'),
             *rnames)).read()
 
-version = '0.5'
+version = '0.6'
 long_description = read('README.txt') + '\n' + read('HISTORY.txt')
 
 install_requires = [
@@ -21,17 +21,18 @@ install_requires = [
     'setuptools',
     'zope.component',
     'zope.location',
+    'zope.interface',
     ]
 
 tests_require = [
+    'cromlech.browser [test]',
     'zope.configuration',
     'zope.interface',
-    'BeautifulSoup',
+    'zope.security',
     ]
 
 security_require = [
-    'grokcore.security >= 1.5',
-    'zope.dottedname',  # Bug, needed by grokcore.security but not declared
+    'grokcore.security >= 1.6.2',
     'zope.security',
     ]
 

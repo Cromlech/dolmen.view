@@ -65,8 +65,6 @@ We can see that it's easy to get the view object in the render method::
 
 import dolmen.view as dolmen
 from dolmen.view import testing
-from cromlech.browser import ILayout
-from zope.interface import implements
 from cromlech.browser.testing import TestLayout, TestResponse
 
 

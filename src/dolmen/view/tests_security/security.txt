@@ -45,17 +45,43 @@ Security declaration
   >>> from zope.security.proxy import ProxyFactory
   >>> from zope.security.management import newInteraction, endInteraction
   >>> from zope.security.testing import Principal, Participation
-  >>> newInteraction(Participation(Principal('cromlech.user')))
+
+
+Security policy
+~~~~~~~~~~~~~~~
+
+  >>> from zope.security.simplepolicies import ParanoidSecurityPolicy
+  >>> from zope.security.management import setSecurityPolicy
+
+  >>> class TestPolicy(ParanoidSecurityPolicy):
+  ...
+  ...     def checkPermission(self, permission, object):
+  ...         if permission == "zope.Public":
+  ...             return True
+  ...
+  ...         for p in self.participations:
+  ...	          if (permission == 'zope.View' and
+  ...                 p.principal.id == 'cromlech.user'):
+  ...                 return True
+  ...
+  ...         return False
+  
+  >>> from zope.security.management import setSecurityPolicy, getSecurityPolicy
+  >>> assert setSecurityPolicy(TestPolicy)
+  >>> assert getSecurityPolicy() == TestPolicy
+
 
 Allowed
 ~~~~~~~
+
+  >>> newInteraction(Participation(Principal('cromlech.user')))
 
   >>> view = dolmen.query_view(request, context, name='public')
   >>> proxy = ProxyFactory(view)
   >>> proxy.render()
   u'Shaven mammoth !! YUCK'
   >>> proxy()
-  <cromlech.io.testing.TestResponse object at ...>
+  <cromlech.browser.testing.TestResponse object at ...>
 
 
 Disallowed

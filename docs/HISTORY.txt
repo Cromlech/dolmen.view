@@ -1,6 +1,14 @@
 Changes
 =======
 
+0.6 (2012-05-08)
+----------------
+
+- Using now the latest changes in `cromlech.browser`. A `View` component
+  is not an `IView`, `IRenderable` and `IResponseFactory`. Changes are
+  backward compatible and should not impact existing code.
+
+
 0.5 (2012-04-26)
 ----------------
 

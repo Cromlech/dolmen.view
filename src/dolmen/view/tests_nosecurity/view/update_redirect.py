@@ -9,7 +9,7 @@ is not executed subsequently.
 
   >>> from cromlech.browser.testing import TestRequest
   >>> from zope.interface import implements
-  >>> from cromlech.io import IRequest
+  >>> from cromlech.browser import IRequest
 
   >>> request = TestRequest(path='/')
 
