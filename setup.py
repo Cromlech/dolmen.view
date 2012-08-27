@@ -10,18 +10,17 @@ def read(*rnames):
             os.path.join(os.path.dirname(__file__), 'docs'),
             *rnames)).read()
 
-version = '0.6'
+version = '1.0dev-crom'
 long_description = read('README.txt') + '\n' + read('HISTORY.txt')
 
 install_requires = [
     'cromlech.browser >= 0.5',
     'cromlech.i18n',
-    'grokcore.component >= 2.1',
-    'martian >= 0.14',
     'setuptools',
     'zope.component',
     'zope.location',
     'zope.interface',
+    'crom',
     ]
 
 tests_require = [
@@ -32,7 +31,6 @@ tests_require = [
     ]
 
 security_require = [
-    'grokcore.security >= 1.6.2',
     'zope.security',
     ]
 
