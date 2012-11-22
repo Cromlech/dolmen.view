@@ -20,6 +20,7 @@ install_requires = [
     'zope.component',
     'zope.location',
     'zope.interface',
+    'cromlech.grok',
     'crom',
     ]
 

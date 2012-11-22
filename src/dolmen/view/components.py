@@ -5,16 +5,15 @@ from cromlech.browser import IResponseFactory, IRenderable, IView
 from cromlech.browser.exceptions import HTTPRedirect
 from cromlech.browser.utils import redirect_exception_response
 from cromlech.i18n import ILanguage
-from grokcore.component import baseclass, implements
-from zope.component import queryMultiAdapter
 from zope.location import Location
+from zope.interface import implements
+from zope.interface.interfaces import ComponentLookupError
 
 
 def query_view(request, context, interface=IView, name=''):
     assert interface.isOrExtends(IView)
     assert IRequest.providedBy(request)
-    return queryMultiAdapter(
-        (context, request), interface, name=name)
+    return interface(context, request, name=name)
 
 
 def query_view_template(view, interface=ITemplate, name=""):
@@ -22,8 +21,7 @@ def query_view_template(view, interface=ITemplate, name=""):
     """
     assert IView.providedBy(view)
     assert interface.isOrExtends(ITemplate)
-    return queryMultiAdapter(
-        (view, view.request), interface, name=name)
+    return interface(view, view.request, name=name)
 
 
 def query_view_layout(view, interface=ILayout, name=""):
@@ -31,8 +29,7 @@ def query_view_layout(view, interface=ILayout, name=""):
     """
     assert IView.providedBy(view)
     assert interface.isOrExtends(ILayout)
-    return queryMultiAdapter(
-        (view.request, view.context), interface, name=name)
+    return interface(view.request, view.context, name=name)
 
 
 def make_view_response(view, result, *args, **kwargs):
@@ -101,7 +98,7 @@ class ViewCanvas(Location):
             return redirect_exception_response(self.responseFactory, exc)
 
 
-class ModelView(ViewCanvas):
+class View(ViewCanvas):
     """A ModelView is a component bound to a model and a request.
     It is meant to be used in an MVC-based application.
     """
@@ -123,14 +120,7 @@ class ModelView(ViewCanvas):
         If no adapter thus no language is found, None is returned.
         None will, most of the time, mean 'no translation'.
         """
-        return ILanguage(self.request, None)
-
-
-class View(ModelView):
-    """The grokkable version of a ModelView.
-    The grokking process provides a `__component_name__` and register
-    the component as a multi adapter on context and request.
-    Please note that the security protection will only work on a
-    grokked View.
-    """
-    baseclass()
+        try:
+            return ILanguage(self.request)
+        except ComponentLookupError:
+            return None

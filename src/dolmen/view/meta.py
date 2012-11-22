@@ -1,21 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from grokker import grokker, directive, Directive
-from crom.directives import sources, target, name
-from crom.implicit import implicit
-from crom.interfaces import IRegistry, NoImplicitRegistryError
-from crom.grokkers import registry
-from cromlech.browser import IView, IRequest
-from grokker import Directive, validator
-from zope.interface import implementer, Interface
-from crom.validators import class_or_interface_validator, interface_validator
-
-
-context = Directive(
-    'context', 'cromlech', validator=class_or_interface_validator)
-
-request = Directive(
-    'request', 'cromlech', validator=class_or_interface_validator)
+from grokker import grokker, directive, validator
+from crom import target, name, registry
+from cromlech.browser import IView, IRequest, request, context
+from zope.interface import Interface
 
 
 @grokker
@@ -31,7 +19,6 @@ def view_component(scanner, pyname,
     if name is None:
         name = obj.__name__.lower()
 
-    print obj, registry, target, context, request, name
     obj.__component_name__ = name
 
     assert target.isOrExtends(IView)
