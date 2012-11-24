@@ -115,10 +115,8 @@ class View(ViewCanvas):
 
     @property
     def target_language(self):
-        """Returns the prefered language by adapting the request.
-        If no adapter thus no language is found, None is returned.
+        """Returns the prefered language using the thread cache.
+        Please note that the cache might be 'None' if nothing was set up.
         None will, most of the time, mean 'no translation'.
         """
-        language = getLanguage()
-        print "rending in language %r" % language
-        return language
+        return getLanguage()
