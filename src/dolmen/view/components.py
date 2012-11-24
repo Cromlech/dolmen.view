@@ -4,10 +4,9 @@ from cromlech.browser import IRequest, ILayout, ITemplate
 from cromlech.browser import IResponseFactory, IRenderable, IView
 from cromlech.browser.exceptions import HTTPRedirect
 from cromlech.browser.utils import redirect_exception_response
-from cromlech.i18n import ILanguage
+from cromlech.i18n import getLanguage
 from zope.location import Location
 from zope.interface import implements
-from zope.interface.interfaces import ComponentLookupError
 
 
 def query_view(request, context, interface=IView, name=''):
@@ -120,7 +119,6 @@ class View(ViewCanvas):
         If no adapter thus no language is found, None is returned.
         None will, most of the time, mean 'no translation'.
         """
-        try:
-            return ILanguage(self.request)
-        except ComponentLookupError:
-            return None
+        language = getLanguage()
+        print "rending in language %r" % language
+        return language
