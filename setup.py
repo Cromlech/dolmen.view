@@ -17,7 +17,6 @@ install_requires = [
     'cromlech.browser >= 0.5',
     'cromlech.i18n',
     'setuptools',
-    'zope.component',
     'zope.location',
     'zope.interface',
     'cromlech.grok',
@@ -28,11 +27,6 @@ tests_require = [
     'cromlech.browser [test]',
     'zope.configuration',
     'zope.interface',
-    'zope.security',
-    ]
-
-security_require = [
-    'zope.security',
     ]
 
 setup(
@@ -59,7 +53,6 @@ setup(
     install_requires=install_requires,
     tests_require=tests_require,
     extras_require={
-        'test': tests_require,
-        'security': security_require,
+        'test': tests_require
         },
     )
