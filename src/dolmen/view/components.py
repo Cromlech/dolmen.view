@@ -4,7 +4,7 @@ from cromlech.browser import IRequest, ILayout, ITemplate
 from cromlech.browser import IResponseFactory, IRenderable, IView
 from cromlech.browser.exceptions import HTTPRedirect
 from cromlech.browser.utils import redirect_exception_response
-from cromlech.i18n import getLanguage
+from cromlech.i18n import getLocale
 from zope.location import Location
 from zope.interface import implements
 
@@ -119,4 +119,4 @@ class View(ViewCanvas):
         Please note that the cache might be 'None' if nothing was set up.
         None will, most of the time, mean 'no translation'.
         """
-        return getLanguage()
+        return getLocale()
