@@ -19,7 +19,6 @@ install_requires = [
     'setuptools',
     'zope.location',
     'zope.interface',
-    'cromlech.grok',
     'crom',
     ]
 
