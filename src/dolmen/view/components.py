@@ -12,7 +12,7 @@ from zope.interface import implements
 def query_view(request, context, interface=IView, name=''):
     assert interface.isOrExtends(IView)
     assert IRequest.providedBy(request)
-    return interface(context, request, name=name)
+    return interface(context, request, name=name, default=None)
 
 
 def query_view_template(view, interface=ITemplate, name=""):
@@ -20,7 +20,7 @@ def query_view_template(view, interface=ITemplate, name=""):
     """
     assert IView.providedBy(view)
     assert interface.isOrExtends(ITemplate)
-    return interface(view, view.request, name=name)
+    return interface(view, view.request, name=name, default=None)
 
 
 def query_view_layout(view, interface=ILayout, name=""):
@@ -28,7 +28,7 @@ def query_view_layout(view, interface=ILayout, name=""):
     """
     assert IView.providedBy(view)
     assert interface.isOrExtends(ILayout)
-    return interface(view.request, view.context, name=name)
+    return interface(view.request, view.context, name=name, default=None)
 
 
 def make_view_response(view, result, *args, **kwargs):
