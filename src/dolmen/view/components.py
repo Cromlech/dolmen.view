@@ -6,7 +6,7 @@ from cromlech.browser.exceptions import HTTPRedirect
 from cromlech.browser.utils import redirect_exception_response
 from cromlech.i18n import getLocalizer
 from zope.location import Location
-from zope.interface import implements
+from zope.interface import implementer
 
 
 def query_view(request, context, interface=IView, name=''):
@@ -50,12 +50,12 @@ def make_layout_response(view, result, name=None):
         'Unable to resolve the layout (name: %r) for %r' % (name, view))
 
 
+@implementer(IView, IRenderable, IResponseFactory)
 class ViewCanvas(Location):
     """A ViewCanvas implements `IView` that is an extended version
     of a simple IHTTPRenderer. It's articulated around 3 methods :
     `update`, `render` and `__call__`.
     """
-    implements(IView, IRenderable, IResponseFactory)
 
     template = None
     make_response = make_view_response
@@ -93,7 +93,7 @@ class ViewCanvas(Location):
             self.update()
             result = self.render()
             return self.make_response(result)
-        except HTTPRedirect, exc:
+        except HTTPRedirect as exc:
             return redirect_exception_response(self.responseFactory, exc)
 
 
