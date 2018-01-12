@@ -4,7 +4,7 @@ import crom
 from crom import testing
 from crom.implicit import implicit
 from cromlech.browser import IView
-from cromlech.browser.testing import TestRequest
+from cromlech.browser.testing import TestRequest as Request
 
 
 class Context(object):
@@ -12,7 +12,7 @@ class Context(object):
 
 
 context = Context
-request = TestRequest()
+request = Request()
 
 
 def setup_function(method):
